@@ -1,3 +1,6 @@
+[web_servers]
 server1@10.104.40.51
+[db_servers]
 server2@10.104.40.52
+[file_servers]
 server3@10.104.40.53
