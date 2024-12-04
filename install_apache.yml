@@ -3,9 +3,32 @@
 - hosts: all
   become: true
   tasks:
+   
+  - name: install update for ubtunu
+    apt:
+      upgrade: dist
+      update_cache: yes
+    when: ansible_distribution== "Ubuntu"
 
+- hosts: web_servers
+  become: true
+  tasks: 
+  
+  - name: install apache and php for ubuntu
+     apt: 
+       name: 
+         -apache2
+         -libapache2-mod-php
+       state: latest
+     when: ansible_distribution == "ubuntu"
 
-  - name:  install apache2 package 
-    apt: 
-      name: apache2
+- hosts: db_servers
+  become: true
+  tasks: 
+  - name: install mariadb server in ubutnu
+     apt: 
+       name: mariadb-server
+       state: latest
+     when: ansibl_distribution == "Ubuntu"
+
        
