@@ -14,7 +14,11 @@
     user:
        name: Simone
        groups: root
-       
+  authorized_key:
+  user: Simone
+  key:"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHxyN/pA25K9t42u9kCju+vIGo79CTEn2ZsDVrcBSJj0"
+
+   
 - hosts: web_servers
   become: true
   tasks: 
