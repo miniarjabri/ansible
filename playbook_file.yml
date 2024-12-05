@@ -8,7 +8,9 @@
     apt:
       upgrade: dist
       update_cache: yes
+    changed_when: false
     when: ansible_distribution == "Ubuntu"
+
   - name: adding Simone user
     tags: always
     user:
@@ -18,9 +20,9 @@
     tags: always
     authorized_key:
        user: Simone
-       key:"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEkrTdbqf1kmPOuVCK56C0mdE7i74ihHjXd8UwrwaORN ansible"
+       key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEkrTdbqf1kmPOuVCK56C0mdE7i74ihHjXd8UwrwaORN ansible"
   - name: add sudoers file for Simone
-   tags: always        
+    tags: always        
     copy:
        src: sudoers_simone
        dst: /etc/sudoers.d/simone

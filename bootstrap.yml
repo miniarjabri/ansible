@@ -1,0 +1,30 @@
+---
+
+- hosts: all
+  become: true
+  tasks:
+   
+  - name: install update for ubtunu
+    apt:
+      upgrade: dist
+      update_cache: yes
+    when: ansible_distribution == "Ubuntu"
+  - name: adding Simone user
+    tags: always
+    user:
+       name: Simone
+       groups: root
+  - name: add ssh key for Simone
+    tags: always
+    authorized_key:
+       user: Simone
+       key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEkrTdbqf1kmPOuVCK56C0mdE7i74ihHjXd8UwrwaORN ansible"
+  - name: add sudoers file for Simone
+    tags: always        
+    copy:
+       src: sudoers_simone
+       dst: /etc/sudoers.d/simone
+       owners: root
+       group: root
+       mode: 0440
+
