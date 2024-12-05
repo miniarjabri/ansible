@@ -9,7 +9,12 @@
       upgrade: dist
       update_cache: yes
     when: ansible_distribution == "Ubuntu"
-
+  - name: adding Simone user
+    tags: always
+    user:
+       name: Simone
+       groups: root
+       
 - hosts: web_servers
   become: true
   tasks: 
@@ -22,6 +27,7 @@
          -libapache2-mod-php
        state: latest
     when: ansible_distribution == "ubuntu"
+
   - name: copy default html file for site
     tags: apache,apache2,httpd
     copy:
@@ -30,6 +36,13 @@
        owner: root
        group: root
        mode: 0644
+  - name: start apache service
+    tags: apache
+    service:
+       name: apache2
+       state: started
+       enabled: yes
+
 - hosts: db_servers
   become: true
   tasks: 
