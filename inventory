@@ -1,6 +1,6 @@
 [web_servers]
-server1@10.104.40.51
+server1@192.168.56.10
 [db_servers]
-server2@10.104.40.52
+server2@192.168.56.20
 [file_servers]
-server3@10.104.40.53
+server3@192.168.56.30
