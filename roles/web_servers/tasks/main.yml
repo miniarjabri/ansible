@@ -31,7 +31,7 @@
      regexp: '^ServerAdmin'
      line: ServerAdmin somebody@somewhere.net
   when: ansible_distribution == "CentOS"
-     register: httpd
+  register: httpd
  
 - name: restart httpd (CentOS)
   tags: apache,centos,httpd
