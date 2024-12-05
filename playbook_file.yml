@@ -47,5 +47,19 @@
     package:
       name: samba
       state: latest
-   
-       
+- hosts: workstations
+  become: true
+  tasks:
+  - name: install unzip 
+    tags: unzipT
+    package:
+     name: unzip 
+  - name: install terraform
+    tags: unzipT 
+    unarchive:  
+       src: https://releases.hashicorp.com/terraform/1.10.1/terraform_1.10.1_linux_amd64.zip
+       dest: /usr/local/bin
+       remote_src: yes
+       mode: 0755
+       owner: root
+       group: root
