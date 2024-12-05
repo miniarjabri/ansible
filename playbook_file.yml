@@ -14,11 +14,20 @@
     user:
        name: Simone
        groups: root
-  authorized_key:
-  user: Simone
-  key:"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHxyN/pA25K9t42u9kCju+vIGo79CTEn2ZsDVrcBSJj0"
+  - name: add ssh key for Simone
+    tags: always
+    authorized_key:
+       user: Simone
+       key:"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIHxyN/pA25K9t42u9kCju+vIGo79CTEn2ZsDVrcBSJj0"
+  - name: add sudoers file for Simone
+   tags: always        
+    copy:
+       src: sudoers_simone
+       dst: /etc/sudoers.d/simone
+       owners: root
+       group: root
 
-   
+
 - hosts: web_servers
   become: true
   tasks: 
