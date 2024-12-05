@@ -18,7 +18,7 @@
     tags: always
     authorized_key:
        user: Simone
-       key:"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEKrTdbqf1KmPOuVCK56C0mdE7i74ihHjXd8UwrwaORN"
+       key:"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEkrTdbqf1kmPOuVCK56C0mdE7i74ihHjXd8UwrwaORN"
   - name: add sudoers file for Simone
    tags: always        
     copy:
