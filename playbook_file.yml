@@ -1,93 +1,44 @@
 ---
-
-- hosts: all
-  become: true
-  tasks:
-   
-  - name: install update for ubtunu
-    apt:
-      upgrade: dist
-      update_cache: yes
-    changed_when: false
-    when: ansible_distribution == "Ubuntu"
-
-  - name: adding Simone user
-    tags: always
-    user:
-       name: Simone
-       groups: root
-  - name: add ssh key for Simone
-    tags: always
-    authorized_key:
-       user: Simone
-       key: "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEkrTdbqf1kmPOuVCK56C0mdE7i74ihHjXd8UwrwaORN ansible"
-  - name: add sudoers file for Simone
-    tags: always        
-    copy:
-       src: sudoers_simone
-       dst: /etc/sudoers.d/simone
-       owners: root
-       group: root
-
-
-- hosts: web_servers
-  become: true
-  tasks: 
-  
-  - name: install apache and php for ubuntu
-    tags: apache2,apache,httpd
-    apt: 
-       name: 
-         -apache2
-         -libapache2-mod-php
-       state: latest
-    when: ansible_distribution == "ubuntu"
-
-  - name: copy default html file for site
-    tags: apache,apache2,httpd
-    copy:
-       src: default_site.html
-       dest: /var/www/html/index.html
-       owner: root
-       group: root
-       mode: 0644
-  - name: start apache service
-    tags: apache
-    service:
-       name: apache2
-       state: started
-       enabled: yes
-
-- hosts: db_servers
-  become: true
-  tasks: 
-  - name: install mariadb server in ubutnu
-    tags: mariadb
-    apt: 
-       name: mariadb-server
-       state: latest
-    when: ansibl_distribution == "Ubuntu"
-
-- hosts: file_servers
-  become: true
-  tasks:
-  - name: install samba package
-    package:
-      name: samba
-      state: latest
-- hosts: workstations
-  become: true
-  tasks:
-  - name: install unzip 
-    tags: unzipT
-    package:
-     name: unzip 
-  - name: install terraform
-    tags: unzipT 
-    unarchive:  
-       src: https://releases.hashicorp.com/terraform/1.10.1/terraform_1.10.1_linux_amd64.zip
-       dest: /usr/local/bin
-       remote_src: yes
-       mode: 0755
-       owner: root
-       group: root
+ 
+ - hosts: all
+   become: true
+   pre_tasks:
+ 
+   - name: update repository index (CentOS)
+     tags: always
+     dnf:
+       update_cache: yes
+     changed_when: false
+     when: ansible_distribution == "CentOS"
+ 
+   - name: update repository index (Ubuntu)
+     tags: always
+     apt:
+       update_cache: yes
+     changed_when: false
+     when: ansible_distribution == "Ubuntu"
+ 
+ - hosts: all
+   become: true
+   roles:
+     - base
+    
+ - hosts: workstations
+   become: true
+   roles:
+     - workstations
+ 
+ - hosts: web_servers
+   become: true
+   roles:
+     - web_servers
+ 
+ - hosts: db_servers
+   become: true
+   roles:
+     - db_servers
+ 
+ - hosts: file_servers
+   become: true
+   roles:
+     - file_servers
