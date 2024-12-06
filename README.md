@@ -25,3 +25,12 @@ make your playbook that sets up the website idempotent. Run it a second time and
 - https://github.com/mpsOxygen/ansible?tab=readme-ov-file
 ## udemy 50 taks practice: 
 - https://www.udemy.com/course/ansible-practice-tasks-50-ansible-playbooks-hands-on-tasks/?srsltid=AfmBOorYLoXQbxFeQpmpczu_CgcDwoaPmhdIrIitZ_fRSFxx215D1mqE&couponCode=LETSLEARNNOW
+
+## reddit advice: 
+###1:
+- do some docker builds everything else… is gonna be similar.
+- You must use roles
+- Create some yml templates if you’re working with docker builds (just for experimenting)
+- Create some tasks that you can include and iterate other.
+- something more advanced would be running stuff concurrently or install dependencies and set a timeout.
+If you’re comfortable with python you can also create your local plugin/collection.
